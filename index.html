@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>Shopping Cart</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet" />
+   <link href="style.css" rel="stylesheet">
+   <!-- <script src="script.js"></script> -->
+</head>
+
+<body>
+
+   <section>
+      <div id="cart-section" class="container">
+         <div class="cart">
+            <div class="col-md-12 col-lg-10 mx-auto">
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item">
+                        <img src="images/product-1.png" alt="">
+                        <h5>iPhone 11 128GB Black</h5>
+                     </div>
+
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="first-minus-button" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="first-input" type="text" class="form-control text-center" oninput="inputValue1()" value="1">
+                           <button id="first-plus-button" class="btn btn-default"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <h5>$ <span id="first-value">1219</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+                     <div class="col-md-7 center-item mx-auto">
+                        <img src="images/product-2.png" alt="">
+                        <h5>iPhone 11 Silicone Case - Black</h5>
+                     </div>
+                     <div class="col-md-5 center-item">
+                        <div class="input-group number-spinner">
+                           <button id="second-minus-button" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="second-input" type="text" class="form-control text-center" oninput="inputValue2()" value="1">
+                           <button id="second-plus-button" class="btn btn-default"><i class="fas fa-plus"></i></button>
+
+                        </div>
+                        <h5>$ <span id="second-value">59</span></h5>
+                        <img src="images/remove.png" alt="" class="remove-item">
+                     </div>
+                  </div>
+               </div>
+
+               <div class="cart-item">
+                  <div class="row">
+
+                     <div class="col-md-8">
+                        <h5>Subtotal: </h5>
+                        <h5>5% Tax:</h5>
+                        <h5>Total:</h5>
+                     </div>
+
+                     <div class="col-md-4 status">
+                        <h5>$ <span id="sub-total">1278</span></h5>
+                        <h5>$ <span id="tax">63.9</span></h5>
+                        <h5>$ <span id="total">1278</span></h5>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-12 pt-4 pb-4">
+                  <button id="checkout-button" type="button" class="btn btn-success check-out">Check Out</button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+
+   <div id="final-message" class="container final-message">
+      <h1 class="text-center">Thank You for Buying the Item.</h1>
+   </div>
+
+
+
+
+   <script>
+      document.getElementById('first-plus-button').addEventListener('click', function(){
+         var inputValue = inputNumber('first-input', plusButton);
+         var firstItemValue = itemValue('first-value', 1219, inputValue);
+         // second item value
+         var value = document.getElementById('second-value').innerText;
+         var secondItemValue = parseFloat(value);
+         // sub total value
+         var totalSubTotalValue = firstItemValue + secondItemValue;
+         var subTotalValue = document.getElementById('sub-total').innerText = totalSubTotalValue;
+         // getting tax value
+         var taxValue = parseFloat(document.getElementById('tax').innerText);
+         var taxPercent = (subTotalValue / 100) * 5;
+         var totalTax = document.getElementById('tax').innerText = taxPercent;
+         // getting total value
+         var totalValue = parseFloat(document.getElementById('total').innerText);
+         var allTotalValue = subTotalValue + totalTax;
+         document.getElementById('total').innerText = allTotalValue;
+
+         if(inputValue > 0){
+            document.getElementById('first-minus-button').style.display = "block";
+            document.getElementById('first-input').style.marginLeft = "0";
+         }
+      })
+
+      document.getElementById('second-plus-button').addEventListener('click', function(){
+         var inputValue = inputNumber('second-input', plusButton);
+         var secondItemValue = itemValue('second-value', 59, inputValue);
+         // first item value
+         var value = document.getElementById('first-value').innerText;
+         var firstItemValue = parseFloat(value);
+         // sub total value
+         var totalSubTotalValue = firstItemValue + secondItemValue;
+         var subTotalValue = document.getElementById('sub-total').innerText = totalSubTotalValue;
+         // getting tax value
+         var taxValue = parseFloat(document.getElementById('tax').innerText);
+         var taxPercent = (subTotalValue / 100) * 5;
+         var totalTax = document.getElementById('tax').innerText = taxPercent;
+         // getting total value
+         var totalValue = parseFloat(document.getElementById('total').innerText);
+         var allTotalValue = subTotalValue + totalTax;
+         document.getElementById('total').innerText = allTotalValue;
+
+         if(inputValue > 0){
+            document.getElementById('second-minus-button').style.display = "block";
+            document.getElementById('second-input').style.marginLeft = "0";
+         }
+      })
+
+      document.getElementById('first-minus-button').addEventListener('click', function(){
+         var inputValue = inputNumber('first-input', minusButton);
+         var firstItemValue = itemValue('first-value', 1219, inputValue);
+         // second item value
+         var value = document.getElementById('second-value').innerText;
+         var secondItemValue = parseFloat(value);
+         // sub total value
+         var totalSubTotalValue = firstItemValue + secondItemValue;
+         var subTotalValue = document.getElementById('sub-total').innerText = totalSubTotalValue;
+         // getting tax value
+         var taxValue = parseFloat(document.getElementById('tax').innerText);
+         var taxPercent = (subTotalValue / 100) * 5;
+         var totalTax = document.getElementById('tax').innerText = taxPercent;
+         // getting total value
+         var totalValue = parseFloat(document.getElementById('total').innerText);
+         var allTotalValue = subTotalValue + totalTax;
+         document.getElementById('total').innerText = allTotalValue;
+
+         if(inputValue == 0){
+            document.getElementById('first-minus-button').style.display = "none";
+            document.getElementById('first-input').style.marginLeft = "40px";
+         }
+      })
+
+      document.getElementById('second-minus-button').addEventListener('click', function(){
+         var inputValue = inputNumber('second-input', minusButton);
+         var secondItemValue = itemValue('second-value', 59, inputValue);
+         // first item value
+         var value = document.getElementById('first-value').innerText;
+         var firstItemValue = parseFloat(value);
+         // sub total value
+         var totalSubTotalValue = firstItemValue + secondItemValue;
+         var subTotalValue = document.getElementById('sub-total').innerText = totalSubTotalValue;
+         // getting tax value
+         var taxValue = parseFloat(document.getElementById('tax').innerText);
+         var taxPercent = (subTotalValue / 100) * 5;
+         var totalTax = document.getElementById('tax').innerText = taxPercent;
+         // getting total value
+         var totalValue = parseFloat(document.getElementById('total').innerText);
+         var allTotalValue = subTotalValue + totalTax;
+         document.getElementById('total').innerText = allTotalValue;
+
+         if(inputValue == 0){
+            document.getElementById('second-minus-button').style.display = "none";
+            document.getElementById('second-input').style.marginLeft = "40px";
+         }
+      })
+
+      // function for getting input value/number
+      function inputNumber(number, buttonName){
+         const numbers = document.getElementById(number).value;
+         const howMuch = parseFloat(numbers);
+         var totalNumber = buttonName(howMuch)
+         const number1 = document.getElementById(number).value = totalNumber;
+         return number1;
+      }
+      // function for plus button event
+      function plusButton(howMuch){
+         const totalNumber = howMuch + 1;
+         return totalNumber;
+      }
+      // function for minus button event
+      function minusButton(howMuch){
+         const totalNumber = howMuch - 1;
+         return totalNumber;
+      }
+      // function for getting item value
+      function itemValue(value, changeValue, values){
+         var totalValue = values * changeValue;
+         var phoneValue = document.getElementById(value).innerText = totalValue;
+         return phoneValue;
+      }
+      // function for getting input inside value
+      function inputValue1(){
+         var inputValue = document.getElementById('first-input').value;
+         var inputNumber = parseFloat(inputValue);
+         var input = inputNumber * 1219;
+         var firstItemValue = document.getElementById('first-value').innerText = input;
+         // get second item value
+         var value = document.getElementById('second-value').innerText;
+         var secondItemValue = parseFloat(value);
+         // adding value to sub total
+         var totalSubTotalValue = firstItemValue + secondItemValue;
+         var subTotalValue = document.getElementById('sub-total').innerText = totalSubTotalValue;
+         // getting tax value
+         var taxValue = parseFloat(document.getElementById('tax').innerText);
+         var taxPercent = (subTotalValue / 100) * 5;
+         var totalTax = document.getElementById('tax').innerText = taxPercent;
+         // getting total value
+         var totalValue = parseFloat(document.getElementById('total').innerText);
+         var allTotalValue = subTotalValue + totalTax;
+         document.getElementById('total').innerText = allTotalValue;
+         // hiding minus button
+         if(inputValue == ""){
+            document.getElementById('first-value').innerText = 0;
+            var subValue = document.getElementById('sub-total').innerText = secondItemValue;
+
+            var taxPer = (subValue / 100) * 5;
+            var zeroTax = document.getElementById('tax').innerText = taxPer;
+
+            var zeroTotal = subValue + zeroTax;
+            document.getElementById('total').innerText = zeroTotal;
+
+            document.getElementById('first-minus-button').style.display = "none";
+            document.getElementById('first-input').style.marginLeft = "40px";
+         }
+         else if(inputNumber > 0){
+            document.getElementById('first-minus-button').style.display = "block";
+            document.getElementById('first-input').style.marginLeft = "0";
+         }
+      }
+      // function for getting input inside value
+      function inputValue2(){
+         var inputValue = document.getElementById('second-input').value;
+         var inputNumber = parseFloat(inputValue);
+         var input = inputNumber * 59;
+         var secondItemValue = document.getElementById('second-value').innerText = input;
+         // get first item value
+         var value = document.getElementById('first-value').innerText;
+         var firstItemValue = parseFloat(value);
+         // adding value to sub total
+         var totalSubTotalValue = firstItemValue + secondItemValue;
+         var subTotalValue = document.getElementById('sub-total').innerText = totalSubTotalValue;
+         // getting tax value
+         var taxValue = parseFloat(document.getElementById('tax').innerText);
+         var taxPercent = (subTotalValue / 100) * 5;
+         var totalTax = document.getElementById('tax').innerText = taxPercent;
+         // getting total value
+         var totalValue = parseFloat(document.getElementById('total').innerText);
+         var allTotalValue = subTotalValue + totalTax;
+         document.getElementById('total').innerText = allTotalValue;
+         // hiding minus button
+         if(inputValue == ""){
+            document.getElementById('second-value').innerText = 0;
+            var subValue = document.getElementById('sub-total').innerText = firstItemValue;
+
+            var taxPer = (subValue / 100) * 5;
+            var zeroTax = document.getElementById('tax').innerText = taxPer;
+
+            var zeroTotal = subValue + zeroTax;
+            document.getElementById('total').innerText = zeroTotal;
+
+            document.getElementById('second-minus-button').style.display = "none";
+            document.getElementById('second-input').style.marginLeft = "40px";
+         }
+         else if(inputNumber > 0){
+            document.getElementById('second-minus-button').style.display = "block";
+            document.getElementById('second-input').style.marginLeft = "0";
+         }
+      }
+
+      // check out button
+      document.getElementById('checkout-button').addEventListener('click', function(){
+         alert('Your Transaction has been Completed!');
+         document.getElementById('cart-section').style.display = "none";
+         document.getElementById('final-message').style.display = "block";
+      })
+
+      
+
+      
+
+
+//       function myFunction() {
+//   var x = document.getElementById("myInput").value;
+//   document.getElementById("demo").innerHTML = "You wrote: " + x;
+// }
+   </script>
+</body>
+
+</html>
