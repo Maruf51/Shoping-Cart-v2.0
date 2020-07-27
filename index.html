@@ -17,7 +17,7 @@
       <div id="cart-section" class="container">
          <div class="cart">
             <div class="col-md-12 col-lg-10 mx-auto">
-               <div class="cart-item">
+               <div id="first-cart" class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item">
                         <img src="images/product-1.png" alt="">
@@ -31,12 +31,12 @@
                            <button id="first-plus-button" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
                         <h5>$ <span id="first-value">1219</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <img id="first-remove" src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
 
-               <div class="cart-item">
+               <div id="second-cart" class="cart-item">
                   <div class="row">
                      <div class="col-md-7 center-item mx-auto">
                         <img src="images/product-2.png" alt="">
@@ -50,7 +50,7 @@
 
                         </div>
                         <h5>$ <span id="second-value">59</span></h5>
-                        <img src="images/remove.png" alt="" class="remove-item">
+                        <img id="second-remove" src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
                </div>
@@ -286,22 +286,49 @@
          }
       }
 
-      // check out button
-      document.getElementById('checkout-button').addEventListener('click', function(){
-         alert('Your Transaction has been Completed!');
-         document.getElementById('cart-section').style.display = "none";
-         document.getElementById('final-message').style.display = "block";
+      // adding first remover
+      document.getElementById('first-remove').addEventListener('click', function(){
+         document.getElementById('first-cart').style.display = 'none';
+         var subTotalValue = parseFloat(document.getElementById('sub-total').innerText);
+         var firstItemValue = parseFloat(document.getElementById('first-value').innerText);
+         document.getElementById('first-value').innerText = 0;
+         var newSubTotal = subTotalValue - firstItemValue;
+         var newSubTotalValue = document.getElementById('sub-total').innerText = newSubTotal;
+
+         var taxPer = (newSubTotalValue / 100) * 5;
+         var zeroTax = document.getElementById('tax').innerText = taxPer;
+
+         var total = newSubTotalValue + zeroTax;
+         document.getElementById('total').innerText = total;
+      })
+      // adding second remover
+      document.getElementById('second-remove').addEventListener('click', function(){
+         document.getElementById('second-cart').style.display = 'none';
+         var subTotalValue = parseFloat(document.getElementById('sub-total').innerText);
+         var secondItemValue = parseFloat(document.getElementById('second-value').innerText);
+         document.getElementById('second-value').innerText = 0;
+         var newSubTotal = subTotalValue - secondItemValue;
+         var newSubTotalValue = document.getElementById('sub-total').innerText = newSubTotal;
+
+         var taxPer = (newSubTotalValue / 100) * 5;
+         var zeroTax = document.getElementById('tax').innerText = taxPer;
+
+         var total = newSubTotalValue + zeroTax;
+         document.getElementById('total').innerText = total;
       })
 
-      
-
-      
-
-
-//       function myFunction() {
-//   var x = document.getElementById("myInput").value;
-//   document.getElementById("demo").innerHTML = "You wrote: " + x;
-// }
+      // check out button
+      document.getElementById('checkout-button').addEventListener('click', function(){
+         var totalValue = parseFloat(document.getElementById('total').innerText);
+         if(totalValue == 0){
+            alert('Transaction not Completed')
+         }
+         else{
+            alert('Your Transaction has been Completed!');
+            document.getElementById('cart-section').style.display = "none";
+            document.getElementById('final-message').style.display = "block";
+         }
+      })
    </script>
 </body>
 
